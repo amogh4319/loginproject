@@ -16,13 +16,13 @@ const addUserHandler=(uName,uAge)=>{
 
 
   return (
-    <div className="App">
+    <React.Fragment className="App">
       <h1>Login Project</h1>
       
       <LoginPage onAddUser={addUserHandler}/>
       <UserList users={usersList}/>
       
-    </div>
+    </React.Fragment>
   );
 }
 
