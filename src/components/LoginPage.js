@@ -29,6 +29,13 @@ const LoginPage=(props)=>{
             })
             return;
         }
+        if(collegeUserInput.trim().length===0){
+            setError({
+                title:"invalid input",
+                message:"please enter valid college name"
+            })
+            return;
+        }
         props.onAddUser(nameUserInput,ageUserInput,collegeUserInput);
         nameInput.current.value='';
         ageInput.current.value='';
