@@ -1,63 +1,72 @@
-import React,{useState} from "react";
+import React,{useState}from "react";
 import ErrorHandle from "./ErrorHandle";
+import Wrapper from "./Wrapper";
+import {useRef} from 'react';
 const LoginPage=(props)=>{
-    const [enteredName,setName]=useState('')
-    const [enteredAge,setAge]=useState('')
+    const nameInput=useRef();
+    const ageInput=useRef();
+    const collegeInput=useRef();
+    
     const [error,setError]=useState();
     
-    const userNameHandler=(event)=>{
-        setName(event.target.value);
-       
-        
-    }
-    const ageHandler=(event)=>{
-        setAge(event.target.value);
-        
-    }
+    
     const submission=(event)=>{
         event.preventDefault();
-        
-        if(enteredName.trim().length===0 || enteredAge.trim().length===0){
+        const nameUserInput=nameInput.current.value;
+        const ageUserInput=ageInput.current.value;
+        const collegeUserInput=collegeInput.current.value;
+        if(nameUserInput.trim().length===0 || ageUserInput.trim().length===0){
             setError({
                 title:"Invalid input",
                 message:"please enter correct name and age"
             })
             return;
         }
-        if(enteredAge<1){
+        if(+ageUserInput<1){
             setError({
                 title:"invalid age",
                 message:"please enter valid age(>0)"
             })
             return;
         }
-        props.onAddUser(enteredName,enteredAge);
-        setName('');
-        setAge('');
+        props.onAddUser(nameUserInput,ageUserInput,collegeUserInput);
+        nameInput.current.value='';
+        ageInput.current.value='';
+        collegeInput.current.value='';
     }
     const errorHandler=()=>{
         setError(null);
     }
     return(
-        <div>
+        <Wrapper>
            {error && <ErrorHandle title={error.title} message={error.message} onConfirm={errorHandler}/>}
             <form onSubmit={submission}>
             <div><label>User Name</label></div>
             <div><input 
             type="text"
-            value={enteredName}
-            onChange={userNameHandler}
+            
+            ref={nameInput}
             /></div>
             <div><label>Age</label></div>
             <div><input 
             type="number"
-            value={enteredAge}
-            onChange={ageHandler}
+            
+            ref={ageInput}
             /></div>
+
+           <div><label>College Name</label></div>
+            <div><input 
+            type="text"
+            
+            ref={collegeInput}
+            /></div>
+
             <div><button type="submit">Add User</button></div>
+
+           
             </form>
             
-        </div>
+        </Wrapper>
     )
 }
 export default LoginPage;

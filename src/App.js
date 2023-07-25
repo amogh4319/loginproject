@@ -8,15 +8,15 @@ import UserList from './components/UserList';
 function App() {
   const [usersList,setUsersList]=useState([])
   
-const addUserHandler=(uName,uAge)=>{
+const addUserHandler=(uName,uAge,uCollege)=>{
   setUsersList((prevUserList)=>{
-    return [...prevUserList,{name:uName,age:uAge,id:Math.random().toString()}]
+    return [...prevUserList,{name:uName,age:uAge,collegeName:uCollege,id:Math.random().toString()}]
   })
 }
 
 
   return (
-    <React.Fragment className="App">
+    <React.Fragment>
       <h1>Login Project</h1>
       
       <LoginPage onAddUser={addUserHandler}/>
